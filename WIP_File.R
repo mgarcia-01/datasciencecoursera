@@ -59,3 +59,18 @@ corr("~/Sync/Coursera Data Science/specdata/", threshold = 200)
  cr <- sort(cr)
  print(c(n, round(cr, 4)))
  
+ 
+ 
+ ################
+ as.numeric(as.character(myOutput$`heart attack`))
+ transform(myOutput, hrank = ave() )
+ as.data.frame(myOutput)
+ split(myOutput,myOutput$`hospital name`)
+ split(aa, aa$Hospital.Name)
+ s <- split(c,c$`hospital name`)
+ lapply(s, function(x)last(c$`hospital name`,order_by = c$`heart attack`))
+ last(c$`hospital name`,order_by = c$`heart attack`)
+ first(myOutput$`hospital name`,order_by = myOutput$`heart attack`)
+ x <- "WA"
+ ppa <- best("WA", "heart attack")
+ 
