@@ -38,17 +38,18 @@ best <- function(state, outcome) {
               stop("invalid outcome")
             
                   c <- subset(ab, ab$state == x
-                                  , select = c(names(ab))
+                                  , select = c("hospital name", y )
                               )
                   myOutput <- subset(c, c[2]!= "Not Available")
         
           
              
           ## Return hospital name in that state with lowest 30-day death rate'
-                 hospital <- as.character(dplyr::first(myOutput$`hospital name`,order_by = as.numeric(as.character(myOutput[2]))))
+                 hospital <- as.character(dplyr::first(myOutput$`hospital name`,order_by = myOutput[2]))
           return(hospital)
       
-    }
+}
+
 
 #### question 1 ####
 best("SC", "heart attack")
@@ -56,4 +57,13 @@ best("SC", "heart attack")
 #### ques 2 ####
 
 best("NY", "pneumonia")
+
+x <- "AL"
+
+
+y="heart failure"
+
+myOutput[with(myOutput, order(myOutput[2], myOutput[1])), ]
+
+myOutput[order(myOutput[2]),] 
 

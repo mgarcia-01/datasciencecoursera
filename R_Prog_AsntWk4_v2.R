@@ -37,9 +37,16 @@ best <- function(state, outcome) {
   if((y %in% c("heart attack", "heart failure" , "pneumonia")) == FALSE)
     stop("invalid outcome")
   
-  c <- subset(ab, ab$state == x
-              , select = c(names(ab))
-  )
+  c <- if(y == "heart attack")
+              {subset(ab, ab$state == x, select = c("hospital name", "heart attack"))}
+       if(y == "heart failure")
+              {subset(ab, ab$state == x, select = c("hospital name", "heart failure"))}
+       if(y == "pneumonia")
+              {subset(ab, ab$state == x, select = c("hospital name", "pneumonia"))}
+  
+  
+  
+  
   myOutput <- subset(c, c[2]!= "Not Available")
   
   
