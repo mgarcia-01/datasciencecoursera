@@ -10,13 +10,8 @@ fileURL2 <- "T:/DataScienceDirectory/data_toolbox/R_Program/rprogProgAssignment3
 outcome <- read.csv(fileURL)
 hd <- read.csv(fileURL2)
 
-listofnames <- names(outcome)
-outcome[, 11] <- as.numeric(outcome[, 11])
-hist(outcome[,11])
 
-best("SC", "heart attack")
-
-
+#### best function ####
 best <- function(state, outcome) {
       ## Read outcome data
             a <- read.csv(fileURL)
@@ -43,20 +38,22 @@ best <- function(state, outcome) {
               stop("invalid outcome")
             
                   c <- subset(ab, ab$state == x
-                                  , select = c("hospital name", y)
+                                  , select = c(names(ab))
                               )
-                    myOutput <- subset(c, c[2]!= "Not Available")
+                  myOutput <- subset(c, c[2]!= "Not Available")
         
           
              
           ## Return hospital name in that state with lowest 30-day death rate'
-                 hospital <- as.character(first(myOutput$`hospital name`,order_by = myOutput$`heart attack`))
+                 hospital <- as.character(dplyr::first(myOutput$`hospital name`,order_by = as.numeric(as.character(myOutput[2]))))
           return(hospital)
       
     }
 
+#### question 1 ####
+best("SC", "heart attack")
 
+#### ques 2 ####
 
-
-
+best("NY", "pneumonia")
 
