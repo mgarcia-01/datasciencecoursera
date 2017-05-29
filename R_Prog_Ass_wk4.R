@@ -67,6 +67,7 @@ rankhospital <- function(state, outcome, num = "best") {
       )
       x=state
       y=outcome
+      z=num
   ## Check that state and outcome are valid
   
       if (missing(y))
@@ -81,28 +82,16 @@ rankhospital <- function(state, outcome, num = "best") {
       c <- subset(ab, ab$state == x
                   , select = c("hospital name", y )
       )
-      myOutput <- subset(c, c[2]!= "Not Available")
+       myOutput <- subset(c, c[2]!= "Not Available")
     #  hospital <- with(myOutput, myOutput[1][myOutput[2] == min(as.numeric(as.character(myOutput[,2])), na.rm=T)])
   ## Return hospital name in that state with the given rank 30-day death rate
-  
+
+      myRank <- myOutput %>% dplyr::mutate(rank = dplyr::dense_rank(arrange(myOutput[2])))
+      d <- subset(myRank, myRank$rank == z
+                  , select = c("hospital name", y)
+      )
+    return(d)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -117,9 +106,10 @@ best("NY", "pneumonia")
 ### ques 3 ###
 best("AK", "pneumonia")
 
+x="TX"
+y="heart attack"
+z= 1
+rankhospital("TX", "pneumonia", 10)
 
 
-
-
-
-
+write.xlsx(myOutput %>% dplyr::mutate(rank = dplyr::dense_rank(arrange(myOutput[2]))),"T:/DataScienceDirectory/data_toolbox/R_Program/rprogProgAssignment3-data/rankingData.xlsx")
